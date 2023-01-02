@@ -23,9 +23,12 @@ int top() {
 }
 
 int test() {
-	push(5); push(4); push(3);
+	push(5); 
+	push(4); 
+	push(3); // 5 4 3
 	cout << top() << '\n'; // 3
-  	pop(); pop();
+  	pop(); 
+	pop();
   	cout << top() << '\n'; // 5
   	push(10); push(12);
   	cout << top() << '\n'; // 12
