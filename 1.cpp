@@ -18,7 +18,12 @@ int main(void)
 	vector<int> v1(5);
 	int num[5] = {1, 2, 3, 4, 5};
 	for(auto s : num)
-		cout << s[3] << ' '; 
+		cout << s << ' '; 
 		
+	v1.pop_back();
+	//v1.pop_front();
+	//v1.push_front(6);
+	v1.push_back(6);
 
+	cout << v1[6] << ' ';
 }
