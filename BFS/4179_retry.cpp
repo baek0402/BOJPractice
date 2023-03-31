@@ -53,6 +53,13 @@ int main(void)
 		}
 	}
 	
+	for(int i = 0; i < n; i++) {
+		for(int j = 0; j < m; j++) {
+			cout << f_dist[i][j] << ' ';
+		}
+		cout << '\n';
+	}
+	
 	while(!Q2.empty()) {
 		auto cur = Q2.front();
 		Q2.pop();
