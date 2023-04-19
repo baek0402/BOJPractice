@@ -5,7 +5,7 @@ using namespace std;
 #define Y second
 
 int board[104][104];
-bool vis[104][104];
+int vis[104][104];
 int n;
 
 int dx[4] = {-1, 0, 0, 1};
@@ -15,25 +15,30 @@ int main(void) {
 	ios::sync_with_stdio(0);
 	cin.tie(0);
 	
-	cin >> n;	
+	cin >> n;
+	
+	int height = 0;	
 	for(int i = 0; i < n; i++) {
 		for(int j = 0; j < n; j++) {
 			cin >> board[i][j];
+			
+			height = max(height, board[i][j]);
 		}
 	}
 	
-	cout << "n";
+	int max_cnt=0;
+	queue<pair<int, int>> Q;
 	
-	for(int i = 0; i < n; i++) {
-		for(int j = 0; j < n; j++) {
-	
-			queue<pair<int, int>> Q;
-			cout << "a\n";
-			//for(int k = 1; k <= 100; k++) {		
-				if(board[i][j] >= 4 && vis[i][j] != 0)
-					Q.push({i, j});
+	for(int k = 0; k <= height; k++) {	
+		int cnt = 0;
+
+		for(int i = 0; i < n; i++) {
+			for(int j = 0; j < n; j++) {
+				if(board[i][j] <= k || vis[i][j] == 1) continue;
+				cnt++;
 				
-				auto cur = Q.front(); Q.pop();
+				Q.push({i, j});
+				vis[i][j] = 1;
 				
 				while(!Q.empty()) {
 					auto cur = Q.front(); Q.pop();
@@ -42,14 +47,20 @@ int main(void) {
 						int nx = cur.X + dx[dir];
 						int ny = cur.Y + dy[dir];
 							
-						if(nx < 0 || nx >= n || ny < 0 || nx >= n) continue;
-						if(board[nx][ny] <= 3 || vis[nx][ny] >= 1) continue;
-							
+						if(nx < 0 || nx >= n || ny < 0 || ny >= n) continue;
+						if(board[nx][ny] <= k || vis[nx][ny] >= 1) continue;
+						
 						vis[nx][ny] = 1;
 						Q.push({nx, ny});			
-					}		
-				}	
-			//}		
+					}
+				}
+			}
 		}
+		max_cnt = max(max_cnt, cnt);
+		
+		for(int i = 0; i < n; i++)
+			fill(vis[i], vis[i]+n, 0);
 	}
+	
+	cout << max_cnt;
 }
